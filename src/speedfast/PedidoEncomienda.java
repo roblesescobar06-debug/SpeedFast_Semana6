@@ -1,75 +1,34 @@
 package speedfast;
 
 /**
- * Pedido de tipo Encomienda (documentos o paquetes).
+ * Pedido de tipo Encomienda.
  *
- * Criterio de asignación: requiere validación de peso y embalaje antes
- * de asignar al repartidor.
+ * Hereda de la clase abstracta Pedido e implementa el método abstracto
+ * calcularTiempoEntrega() con su propia fórmula:
+ *   tiempo = 20 min base + 1.5 min por cada kilómetro (ajustado a entero).
  */
 public class PedidoEncomienda extends Pedido {
 
-    // Atributos propios de este tipo de pedido
-    private double pesoKg;
-    private boolean embalajeValidado;
-
     /**
-     * Constructor completo. Fija el tipoPedido como "Encomienda" mediante super().
+     * Constructor. Llama al constructor de la clase abstracta con super().
      *
      * @param idPedido         identificador único del pedido
      * @param direccionEntrega dirección de entrega
-     * @param pesoKg           peso del paquete en kilogramos
-     * @param embalajeValidado indica si el embalaje ya fue validado
+     * @param distanciaKm      distancia de reparto en kilómetros
      */
-    public PedidoEncomienda(int idPedido, String direccionEntrega, double pesoKg, boolean embalajeValidado) {
-        super(idPedido, direccionEntrega, "Encomienda");
-        this.pesoKg = pesoKg;
-        this.embalajeValidado = embalajeValidado;
+    public PedidoEncomienda(int idPedido, String direccionEntrega, double distanciaKm) {
+        super(idPedido, direccionEntrega, distanciaKm);
     }
 
     /**
-     * Sobreescritura (override) del método genérico con la lógica propia de Encomienda.
+     * Implementación del método abstracto para pedidos de Encomienda.
+     * Fórmula: 20 minutos base + 1.5 minutos por cada kilómetro.
+     * El resultado se ajusta a entero mediante casting (int).
+     *
+     * @return tiempo estimado de entrega en minutos
      */
     @Override
-    public void asignarRepartidor() {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Pedido #" + getIdPedido() + " (" + getTipoPedido() + ")");
-        System.out.println("Dirección de entrega: " + getDireccionEntrega());
-        System.out.println("Validando peso (" + pesoKg + " kg) y embalaje antes de asignar el repartidor.");
-    }
-
-    /**
-     * Sobrecarga (overload) del método: recibe el nombre del repartidor
-     * e incorpora la validación de peso y embalaje.
-     *
-     * @param nombreRepartidor nombre del repartidor asignado
-     */
-    public void asignarRepartidor(String nombreRepartidor) {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Pedido #" + getIdPedido() + " (" + getTipoPedido() + ")");
-        System.out.println("Repartidor asignado: " + nombreRepartidor);
-        System.out.println("Validación de peso: " + pesoKg + " kg registrados.");
-        if (embalajeValidado) {
-            System.out.println("Validación de embalaje: correcto. " + nombreRepartidor + " puede transportar la encomienda. Asignación exitosa.");
-        } else {
-            System.out.println("Validación de embalaje: PENDIENTE. Se requiere revisar el embalaje antes de que " + nombreRepartidor + " retire la encomienda.");
-        }
-    }
-
-    // ------------------- Getters y Setters -------------------
-
-    public double getPesoKg() {
-        return pesoKg;
-    }
-
-    public void setPesoKg(double pesoKg) {
-        this.pesoKg = pesoKg;
-    }
-
-    public boolean isEmbalajeValidado() {
-        return embalajeValidado;
-    }
-
-    public void setEmbalajeValidado(boolean embalajeValidado) {
-        this.embalajeValidado = embalajeValidado;
+    public int calcularTiempoEntrega() {
+        return (int) (20 + 1.5 * distanciaKm);
     }
 }

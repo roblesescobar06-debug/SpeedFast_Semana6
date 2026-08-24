@@ -1,52 +1,48 @@
 package speedfast;
 
 /**
- * Clase principal que prueba el sistema de reparto SpeedFast.
+ * Clase principal que prueba el sistema de pedidos de SpeedFast.
  *
- * Demuestra:
- *  - Polimorfismo: una referencia de tipo Pedido apunta a distintas subclases
- *    y ejecuta la versión sobrescrita correspondiente en tiempo de ejecución.
- *  - Sobreescritura (override): asignarRepartidor() sin parámetros.
- *  - Sobrecarga (overload): asignarRepartidor(String nombreRepartidor).
+ * Demuestra el uso de una clase abstracta (Pedido) y sus subclases:
+ *  - Crea un objeto de cada tipo de pedido.
+ *  - Llama a mostrarResumen() (método heredado) y calcularTiempoEntrega()
+ *    (método abstracto implementado en cada subclase).
+ *  - Imprime los tiempos estimados de forma clara y comparativa.
  */
 public class Main {
 
     public static void main(String[] args) {
 
         System.out.println("====================================================");
-        System.out.println("          SISTEMA DE REPARTO - SpeedFast");
+        System.out.println("     SISTEMA DE PEDIDOS - SpeedFast (Semana 2)");
         System.out.println("====================================================");
 
         // ---------- Instanciación de un objeto de cada subclase ----------
-        // Se usa polimorfismo: la referencia es de tipo base Pedido.
-        Pedido pedido1 = new PedidoComida(101, "Av. Providencia 1234, Santiago", true);
-        Pedido pedido2 = new PedidoEncomienda(102, "Calle Los Olmos 567, Ñuñoa", 8.5, false);
-        Pedido pedido3 = new PedidoExpress(103, "Pasaje El Sol 890, Maipú", 2.3);
+        // Se usa polimorfismo: la referencia es del tipo abstracto Pedido.
+        Pedido pedido1 = new PedidoComida(101, "Av. Providencia 1234, Santiago", 6.0);
+        Pedido pedido2 = new PedidoEncomienda(102, "Calle Los Olmos 567, Ñuñoa", 8.5);
+        Pedido pedido3 = new PedidoExpress(103, "Pasaje El Sol 890, Maipú", 7.0);
 
-        // Se guardan en un arreglo del tipo base para recorrerlos polimórficamente.
+        // Se guardan en un arreglo del tipo abstracto para recorrerlos.
         Pedido[] pedidos = { pedido1, pedido2, pedido3 };
 
-        // ---------- 1) SOBREESCRITURA + POLIMORFISMO ----------
-        System.out.println("\n>>> METODOS SOBRESCRITOS (polimorfismo en tiempo de ejecucion):");
+        // ---------- Recorrido: resumen + tiempo de entrega ----------
+        System.out.println("\n>>> DETALLE Y TIEMPO ESTIMADO DE CADA PEDIDO:");
         for (Pedido pedido : pedidos) {
-            // Aunque la referencia es Pedido, se ejecuta el metodo de la subclase real.
-            pedido.asignarRepartidor();
+            // mostrarResumen() es heredado de la clase abstracta.
+            pedido.mostrarResumen();
+            // calcularTiempoEntrega() ejecuta la version de la subclase real.
+            int tiempo = pedido.calcularTiempoEntrega();
+            System.out.println("Tiempo estimado de entrega: " + tiempo + " minutos");
         }
 
-        // ---------- 2) SOBRECARGA ----------
-        // La version con parametro String esta definida en las subclases, por lo
-        // que se accede mediante referencias concretas de cada subclase.
-        System.out.println("\n>>> METODOS SOBRECARGADOS (con nombre del repartidor):");
-
-        PedidoComida comida = new PedidoComida(201, "Av. Irarrazaval 4321, Ñuñoa", true);
-        comida.asignarRepartidor("Carlos Munoz");
-
-        PedidoEncomienda encomienda = new PedidoEncomienda(202, "Calle Nueva 111, La Florida", 12.0, true);
-        encomienda.asignarRepartidor("Valentina Rojas");
-
-        PedidoExpress express = new PedidoExpress(203, "Av. Vicuna Mackenna 999, San Joaquin", 4.5);
-        express.asignarRepartidor("Diego Fuentes");
-
+        // ---------- Comparativa final de tiempos ----------
+        System.out.println("\n====================================================");
+        System.out.println("     COMPARATIVA DE TIEMPOS DE ENTREGA");
+        System.out.println("====================================================");
+        System.out.println("Pedido #" + pedido1.getIdPedido() + " (Comida):      " + pedido1.calcularTiempoEntrega() + " min");
+        System.out.println("Pedido #" + pedido2.getIdPedido() + " (Encomienda):  " + pedido2.calcularTiempoEntrega() + " min");
+        System.out.println("Pedido #" + pedido3.getIdPedido() + " (Express):     " + pedido3.calcularTiempoEntrega() + " min");
         System.out.println("----------------------------------------------------");
         System.out.println("Fin de la ejecucion del sistema SpeedFast.");
     }

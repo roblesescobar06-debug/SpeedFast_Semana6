@@ -1,64 +1,38 @@
 package speedfast;
 
 /**
- * Pedido de tipo Compra Express (supermercado o farmacia).
+ * Pedido de tipo Express.
  *
- * Criterio de asignación: debe asignarse al repartidor más cercano con
- * disponibilidad inmediata.
+ * Hereda de la clase abstracta Pedido e implementa el método abstracto
+ * calcularTiempoEntrega() con su propia fórmula:
+ *   tiempo = 10 min base; si la distancia es mayor a 5 km, se suman 5 min extra.
  */
 public class PedidoExpress extends Pedido {
 
-    // Atributo propio de este tipo de pedido
-    private double distanciaRepartidorKm;
-
     /**
-     * Constructor completo. Fija el tipoPedido como "Express" mediante super().
+     * Constructor. Llama al constructor de la clase abstracta con super().
      *
-     * @param idPedido              identificador único del pedido
-     * @param direccionEntrega      dirección de entrega
-     * @param distanciaRepartidorKm distancia del repartidor más cercano en km
+     * @param idPedido         identificador único del pedido
+     * @param direccionEntrega dirección de entrega
+     * @param distanciaKm      distancia de reparto en kilómetros
      */
-    public PedidoExpress(int idPedido, String direccionEntrega, double distanciaRepartidorKm) {
-        super(idPedido, direccionEntrega, "Express");
-        this.distanciaRepartidorKm = distanciaRepartidorKm;
+    public PedidoExpress(int idPedido, String direccionEntrega, double distanciaKm) {
+        super(idPedido, direccionEntrega, distanciaKm);
     }
 
     /**
-     * Sobreescritura (override) del método genérico con la lógica propia de Express.
+     * Implementación del método abstracto para pedidos Express.
+     * Fórmula: 10 minutos base. Si la distancia supera los 5 km,
+     * se agregan 5 minutos extra.
+     *
+     * @return tiempo estimado de entrega en minutos
      */
     @Override
-    public void asignarRepartidor() {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Pedido #" + getIdPedido() + " (" + getTipoPedido() + ")");
-        System.out.println("Dirección de entrega: " + getDireccionEntrega());
-        System.out.println("Buscando el repartidor MÁS CERCANO con disponibilidad inmediata (a " + distanciaRepartidorKm + " km).");
-    }
-
-    /**
-     * Sobrecarga (overload) del método: recibe el nombre del repartidor
-     * e incorpora la validación de cercanía y disponibilidad.
-     *
-     * @param nombreRepartidor nombre del repartidor asignado
-     */
-    public void asignarRepartidor(String nombreRepartidor) {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Pedido #" + getIdPedido() + " (" + getTipoPedido() + ")");
-        System.out.println("Repartidor asignado: " + nombreRepartidor);
-        System.out.println("Distancia al punto de retiro: " + distanciaRepartidorKm + " km.");
-        if (distanciaRepartidorKm <= 3.0) {
-            System.out.println("Validación: " + nombreRepartidor + " está cerca y disponible de inmediato. Asignación exitosa.");
-        } else {
-            System.out.println("Advertencia: " + nombreRepartidor + " está a más de 3 km. Se recomienda buscar un repartidor más cercano.");
+    public int calcularTiempoEntrega() {
+        int tiempo = 10;
+        if (distanciaKm > 5) {
+            tiempo = tiempo + 5;
         }
-    }
-
-    // ------------------- Getter y Setter -------------------
-
-    public double getDistanciaRepartidorKm() {
-        return distanciaRepartidorKm;
-    }
-
-    public void setDistanciaRepartidorKm(double distanciaRepartidorKm) {
-        this.distanciaRepartidorKm = distanciaRepartidorKm;
+        return tiempo;
     }
 }

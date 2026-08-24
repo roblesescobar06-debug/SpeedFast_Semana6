@@ -1,46 +1,54 @@
 package speedfast;
 
 /**
- * Clase base que representa un pedido genérico del sistema SpeedFast.
+ * Clase abstracta que representa un pedido genérico del sistema SpeedFast.
  *
- * Contiene los atributos comunes a todos los tipos de pedido y el método
- * base asignarRepartidor(), que las subclases sobrescriben con su propia
- * lógica.
+ * Define los atributos comunes a todos los pedidos y dos métodos:
+ *  - mostrarResumen(): método implementado (con cuerpo) que muestra los datos básicos.
+ *  - calcularTiempoEntrega(): método ABSTRACTO, que cada subclase implementa con su propia fórmula.
  *
- * Todos los atributos están encapsulados (private) y se acceden mediante
- * getters y setters.
+ * Al ser abstracta, esta clase no se puede instanciar directamente:
+ * solo sirve como plantilla base para las subclases.
  */
-public class Pedido {
+public abstract class Pedido {
 
-    // Atributos encapsulados (private) solicitados en el enunciado
-    private int idPedido;
-    private String direccionEntrega;
-    private String tipoPedido;
+    // Atributos comunes a todos los pedidos
+    protected int idPedido;
+    protected String direccionEntrega;
+    protected double distanciaKm;
 
     /**
-     * Constructor completo de la clase base.
+     * Constructor de la clase abstracta.
      *
      * @param idPedido         identificador único del pedido
-     * @param direccionEntrega dirección de entrega del pedido
-     * @param tipoPedido       tipo de pedido (Comida, Encomienda, Express)
+     * @param direccionEntrega dirección de entrega
+     * @param distanciaKm      distancia de reparto en kilómetros
      */
-    public Pedido(int idPedido, String direccionEntrega, String tipoPedido) {
+    public Pedido(int idPedido, String direccionEntrega, double distanciaKm) {
         this.idPedido = idPedido;
         this.direccionEntrega = direccionEntrega;
-        this.tipoPedido = tipoPedido;
+        this.distanciaKm = distanciaKm;
     }
 
     /**
-     * Método base con lógica genérica para asignar un repartidor.
-     * Sirve como comportamiento por defecto que se personaliza (sobrescribe)
-     * en cada subclase.
+     * Método implementado (con cuerpo): imprime los datos básicos del pedido.
+     * Todas las subclases lo heredan tal cual.
      */
-    public void asignarRepartidor() {
+    public void mostrarResumen() {
         System.out.println("----------------------------------------------------");
-        System.out.println("Pedido #" + idPedido + " (" + tipoPedido + ")");
+        System.out.println("Pedido #" + idPedido);
         System.out.println("Dirección de entrega: " + direccionEntrega);
-        System.out.println("Asignando un repartidor disponible mediante el proceso estándar de SpeedFast.");
+        System.out.println("Distancia: " + distanciaKm + " km");
     }
+
+    /**
+     * Método ABSTRACTO: no tiene cuerpo aquí.
+     * Cada subclase está OBLIGADA a implementarlo con su propia fórmula
+     * de cálculo del tiempo de entrega.
+     *
+     * @return el tiempo estimado de entrega en minutos
+     */
+    public abstract int calcularTiempoEntrega();
 
     // ------------------- Getters y Setters -------------------
 
@@ -60,11 +68,11 @@ public class Pedido {
         this.direccionEntrega = direccionEntrega;
     }
 
-    public String getTipoPedido() {
-        return tipoPedido;
+    public double getDistanciaKm() {
+        return distanciaKm;
     }
 
-    public void setTipoPedido(String tipoPedido) {
-        this.tipoPedido = tipoPedido;
+    public void setDistanciaKm(double distanciaKm) {
+        this.distanciaKm = distanciaKm;
     }
 }

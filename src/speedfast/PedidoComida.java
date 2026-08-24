@@ -1,63 +1,33 @@
 package speedfast;
 
 /**
- * Pedido de tipo Comida (restaurantes).
+ * Pedido de tipo Comida.
  *
- * Criterio de asignación: requiere un repartidor con mochila térmica
- * para conservar la temperatura de los alimentos.
+ * Hereda de la clase abstracta Pedido e implementa el método abstracto
+ * calcularTiempoEntrega() con su propia fórmula:
+ *   tiempo = 15 min base + 2 min por cada kilómetro.
  */
 public class PedidoComida extends Pedido {
 
-    // Atributo propio de este tipo de pedido
-    private boolean requiereMochilaTermica;
-
     /**
-     * Constructor completo. Fija el tipoPedido como "Comida" mediante super().
+     * Constructor. Llama al constructor de la clase abstracta con super().
      *
-     * @param idPedido               identificador único del pedido
-     * @param direccionEntrega       dirección de entrega
-     * @param requiereMochilaTermica indica si el pedido exige mochila térmica
+     * @param idPedido         identificador único del pedido
+     * @param direccionEntrega dirección de entrega
+     * @param distanciaKm      distancia de reparto en kilómetros
      */
-    public PedidoComida(int idPedido, String direccionEntrega, boolean requiereMochilaTermica) {
-        super(idPedido, direccionEntrega, "Comida");
-        this.requiereMochilaTermica = requiereMochilaTermica;
+    public PedidoComida(int idPedido, String direccionEntrega, double distanciaKm) {
+        super(idPedido, direccionEntrega, distanciaKm);
     }
 
     /**
-     * Sobreescritura (override) del método genérico con la lógica propia de Comida.
+     * Implementación del método abstracto para pedidos de Comida.
+     * Fórmula: 15 minutos base + 2 minutos por cada kilómetro de distancia.
+     *
+     * @return tiempo estimado de entrega en minutos
      */
     @Override
-    public void asignarRepartidor() {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Pedido #" + getIdPedido() + " (" + getTipoPedido() + ")");
-        System.out.println("Dirección de entrega: " + getDireccionEntrega());
-        System.out.println("Buscando repartidor con MOCHILA TÉRMICA para conservar la temperatura de los alimentos.");
-    }
-
-    /**
-     * Sobrecarga (overload) del método: recibe el nombre del repartidor
-     * e incorpora la validación de la mochila térmica.
-     *
-     * @param nombreRepartidor nombre del repartidor asignado
-     */
-    public void asignarRepartidor(String nombreRepartidor) {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Pedido #" + getIdPedido() + " (" + getTipoPedido() + ")");
-        System.out.println("Repartidor asignado: " + nombreRepartidor);
-        if (requiereMochilaTermica) {
-            System.out.println("Validación: se confirma que " + nombreRepartidor + " cuenta con mochila térmica. Asignación exitosa.");
-        } else {
-            System.out.println("Validación: este pedido no requiere mochila térmica. Asignación exitosa.");
-        }
-    }
-
-    // ------------------- Getter y Setter -------------------
-
-    public boolean isRequiereMochilaTermica() {
-        return requiereMochilaTermica;
-    }
-
-    public void setRequiereMochilaTermica(boolean requiereMochilaTermica) {
-        this.requiereMochilaTermica = requiereMochilaTermica;
+    public int calcularTiempoEntrega() {
+        return 15 + (int) (2 * distanciaKm);
     }
 }
