@@ -35,4 +35,14 @@ public class PedidoExpress extends Pedido {
         }
         return tiempo;
     }
+
+    /**
+     * SOBRESCRITURA del método asignarRepartidor().
+     * Regla de negocio: los pedidos express se asignan al repartidor más cercano disponible.
+     */
+    @Override
+    public void asignarRepartidor() {
+        this.repartidor = "Repartidor express prioritario";
+        System.out.println("Pedido express asignado automáticamente a: " + this.repartidor);
+    }
 }

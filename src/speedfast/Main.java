@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("====================================================");
-        System.out.println("     SISTEMA DE PEDIDOS - SpeedFast (Semana 2)");
+        System.out.println("     SISTEMA DE PEDIDOS - SpeedFast (Semana 3)");
         System.out.println("====================================================");
 
         // ---------- Instanciación de un objeto de cada subclase ----------
@@ -35,6 +35,33 @@ public class Main {
             int tiempo = pedido.calcularTiempoEntrega();
             System.out.println("Tiempo estimado de entrega: " + tiempo + " minutos");
         }
+
+        // ---------- SEMANA 3: Asignación de repartidores (polimorfismo) ----------
+        System.out.println("\n>>> ASIGNACIÓN DE REPARTIDORES:");
+
+        // Asignación AUTOMÁTICA: cada subclase ejecuta su propia versión sobrescrita.
+        for (Pedido pedido : pedidos) {
+            pedido.asignarRepartidor();
+        }
+
+        // Asignación MANUAL: usa el método SOBRECARGADO asignarRepartidor(String).
+        System.out.println("\n>>> ASIGNACIÓN MANUAL (método sobrecargado):");
+        pedido1.asignarRepartidor("Juan Pérez");
+
+        // ---------- SEMANA 3: Operaciones con interfaces ----------
+        // ControladorDeEnvios implementa Despachable, Cancelable y Rastreable.
+        ControladorDeEnvios controlador = new ControladorDeEnvios();
+
+        System.out.println("\n>>> DESPACHO DE PEDIDOS:");
+        controlador.despachar(pedido1);
+        controlador.despachar(pedido2);
+        controlador.despachar(pedido3);
+
+        System.out.println("\n>>> CANCELACIÓN DE UN PEDIDO:");
+        controlador.cancelar();
+
+        // Ver historial de entregas realizadas (Rastreable).
+        controlador.verHistorial();
 
         // ---------- Comparativa final de tiempos ----------
         System.out.println("\n====================================================");

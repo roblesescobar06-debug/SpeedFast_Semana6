@@ -31,4 +31,14 @@ public class PedidoEncomienda extends Pedido {
     public int calcularTiempoEntrega() {
         return (int) (20 + 1.5 * distanciaKm);
     }
+
+    /**
+     * SOBRESCRITURA del método asignarRepartidor().
+     * Regla de negocio: las encomiendas se asignan a repartidores en camioneta.
+     */
+    @Override
+    public void asignarRepartidor() {
+        this.repartidor = "Repartidor en camioneta (Encomienda)";
+        System.out.println("Encomienda asignada automáticamente a: " + this.repartidor);
+    }
 }

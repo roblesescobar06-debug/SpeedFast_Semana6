@@ -30,4 +30,14 @@ public class PedidoComida extends Pedido {
     public int calcularTiempoEntrega() {
         return 15 + (int) (2 * distanciaKm);
     }
+
+    /**
+     * SOBRESCRITURA del método asignarRepartidor().
+     * Regla de negocio: los pedidos de comida se asignan a repartidores en moto.
+     */
+    @Override
+    public void asignarRepartidor() {
+        this.repartidor = "Repartidor en moto (Comida)";
+        System.out.println("Pedido de comida asignado automáticamente a: " + this.repartidor);
+    }
 }

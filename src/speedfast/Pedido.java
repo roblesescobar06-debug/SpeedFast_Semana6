@@ -16,6 +16,7 @@ public abstract class Pedido {
     protected int idPedido;
     protected String direccionEntrega;
     protected double distanciaKm;
+    protected String repartidor;
 
     /**
      * Constructor de la clase abstracta.
@@ -50,6 +51,22 @@ public abstract class Pedido {
      */
     public abstract int calcularTiempoEntrega();
 
+    /**
+     * Método que se SOBRESCRIBE en cada subclase con su lógica de asignación.
+     * Asignación AUTOMÁTICA del repartidor.
+     */
+    public void asignarRepartidor() {
+        this.repartidor = "Repartidor genérico";
+    }
+
+    /**
+     * Método SOBRECARGADO: mismo nombre, distintos parámetros.
+     * Asignación MANUAL del repartidor por nombre.
+     */
+    public void asignarRepartidor(String nombre) {
+        this.repartidor = nombre;
+        System.out.println("Repartidor asignado manualmente: " + nombre);
+    }
     // ------------------- Getters y Setters -------------------
 
     public int getIdPedido() {
