@@ -1,4 +1,4 @@
-package speedfast;
+package modelo;
 
 /**
  * Clase abstracta que representa un pedido genérico del sistema SpeedFast.
@@ -17,6 +17,7 @@ public abstract class Pedido {
     protected String direccionEntrega;
     protected double distanciaKm;
     protected String repartidor;
+    protected String estado = "Pendiente";
 
     /**
      * Constructor de la clase abstracta.
@@ -91,5 +92,23 @@ public abstract class Pedido {
 
     public void setDistanciaKm(double distanciaKm) {
         this.distanciaKm = distanciaKm;
+    }
+    // ===== Getters y setters para la interfaz gráfica =====
+
+
+    public String getRepartidor() {
+        return repartidor;
+    }
+
+    public void setRepartidor(String repartidor) {
+        this.repartidor = repartidor;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

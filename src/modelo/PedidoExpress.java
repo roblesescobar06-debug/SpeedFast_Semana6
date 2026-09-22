@@ -1,4 +1,4 @@
-package speedfast;
+package modelo;
 
 /**
  * Pedido de tipo Express.

@@ -1,4 +1,4 @@
-package speedfast;
+package modelo;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,30 @@ public class ControladorDeEnvios implements Despachable, Cancelable, Rastreable 
 
     // Historial de entregas realizadas (guardado en un ArrayList).
     private ArrayList<String> historial = new ArrayList<>();
+    // Lista común de pedidos compartida por todas las ventanas.
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
 
+    public void agregarPedido(Pedido pedido) {
+        pedidos.add(pedido);
+        historial.add("Pedido #" + pedido.getIdPedido() + " registrado");
+    }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public Pedido buscarPorId(int id) {
+        for (Pedido p : pedidos) {
+            if (p.getIdPedido() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public boolean existeId(int id) {
+        return buscarPorId(id) != null;
+    }
     /**
      * Implementación de Despachable: despacha un pedido y lo registra en el historial.
      */
