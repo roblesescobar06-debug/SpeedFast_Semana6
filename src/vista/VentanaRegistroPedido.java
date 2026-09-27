@@ -1,5 +1,6 @@
 package vista;
 
+import dao.PedidoDAO;
 import modelo.ControladorDeEnvios;
 import modelo.Pedido;
 import modelo.PedidoComida;
@@ -10,13 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Formulario para registrar nuevos pedidos en la lista común del controlador.
+ * Formulario para registrar nuevos pedidos en la base de datos speedfast_db
+ * y en la lista común del controlador.
  */
 public class VentanaRegistroPedido extends JFrame {
 
-    private ControladorDeEnvios controlador;
+    private final ControladorDeEnvios controlador;
+    private final PedidoDAO pedidoDAO = new PedidoDAO();
 
-    private JTextField txtId;
     private JTextField txtDireccion;
     private JTextField txtDistancia;
     private JComboBox<String> cboTipo;
@@ -25,7 +27,7 @@ public class VentanaRegistroPedido extends JFrame {
         this.controlador = controlador;
 
         setTitle("SpeedFast - Registrar pedido");
-        setSize(450, 320);
+        setSize(450, 280);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -37,16 +39,13 @@ public class VentanaRegistroPedido extends JFrame {
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
 
         // ----- Formulario -----
-        JPanel panelFormulario = new JPanel(new GridLayout(4, 2, 10, 12));
+        JPanel panelFormulario = new JPanel(new GridLayout(3, 2, 10, 12));
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(15, 25, 10, 25));
 
-        txtId = new JTextField();
         txtDireccion = new JTextField();
         txtDistancia = new JTextField();
         cboTipo = new JComboBox<>(new String[]{"Comida", "Encomienda", "Express"});
 
-        panelFormulario.add(new JLabel("ID del pedido:"));
-        panelFormulario.add(txtId);
         panelFormulario.add(new JLabel("Dirección de entrega:"));
         panelFormulario.add(txtDireccion);
         panelFormulario.add(new JLabel("Distancia (km):"));
@@ -74,34 +73,16 @@ public class VentanaRegistroPedido extends JFrame {
     }
 
     /**
-     * Valida los campos, crea el pedido según el tipo y lo agrega al controlador.
+     * Valida los campos, guarda el pedido en la base de datos
+     * y lo agrega al controlador con el ID generado por MySQL.
      */
     private void guardarPedido() {
-        String idTexto = txtId.getText().trim();
         String direccion = txtDireccion.getText().trim();
         String distanciaTexto = txtDistancia.getText().trim().replace(",", ".");
         String tipo = (String) cboTipo.getSelectedItem();
 
-        if (idTexto.isEmpty() || direccion.isEmpty() || distanciaTexto.isEmpty()) {
+        if (direccion.isEmpty() || distanciaTexto.isEmpty()) {
             mostrarError("Todos los campos son obligatorios.");
-            return;
-        }
-
-        int id;
-        try {
-            id = Integer.parseInt(idTexto);
-        } catch (NumberFormatException ex) {
-            mostrarError("El ID debe ser un número entero.");
-            return;
-        }
-
-        if (id <= 0) {
-            mostrarError("El ID debe ser mayor que 0.");
-            return;
-        }
-
-        if (controlador.existeId(id)) {
-            mostrarError("Ya existe un pedido con el ID " + id + ".");
             return;
         }
 
@@ -123,35 +104,46 @@ public class VentanaRegistroPedido extends JFrame {
             return;
         }
 
-        Pedido pedido;
-        switch (tipo) {
-            case "Comida":
-                pedido = new PedidoComida(id, direccion, distancia);
-                break;
-            case "Encomienda":
-                pedido = new PedidoEncomienda(id, direccion, distancia);
-                break;
-            default:
-                pedido = new PedidoExpress(id, direccion, distancia);
-                break;
+        // 1) Guardar en la base de datos (MySQL genera el ID)
+        Pedido pedidoTemporal = crearPedido(tipo, 0, direccion, distancia);
+        int idGenerado = pedidoDAO.guardar(pedidoTemporal, tipo);
+
+        if (idGenerado <= 0) {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo guardar el pedido en la base de datos.\nRevisa la consola para ver el detalle.",
+                    "Error de base de datos",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
+        // 2) Agregar al controlador con el ID real de la base de datos
+        Pedido pedido = crearPedido(tipo, idGenerado, direccion, distancia);
         controlador.agregarPedido(pedido);
 
         JOptionPane.showMessageDialog(this,
-                "Pedido #" + id + " (" + tipo + ") registrado correctamente.",
+                "Pedido #" + idGenerado + " (" + tipo + ") guardado correctamente en la base de datos.",
                 "Confirmación",
                 JOptionPane.INFORMATION_MESSAGE);
 
         limpiarCampos();
     }
 
+    private Pedido crearPedido(String tipo, int id, String direccion, double distancia) {
+        switch (tipo) {
+            case "Comida":
+                return new PedidoComida(id, direccion, distancia);
+            case "Encomienda":
+                return new PedidoEncomienda(id, direccion, distancia);
+            default:
+                return new PedidoExpress(id, direccion, distancia);
+        }
+    }
+
     private void limpiarCampos() {
-        txtId.setText("");
         txtDireccion.setText("");
         txtDistancia.setText("");
         cboTipo.setSelectedIndex(0);
-        txtId.requestFocus();
+        txtDireccion.requestFocus();
     }
 
     private void mostrarError(String mensaje) {

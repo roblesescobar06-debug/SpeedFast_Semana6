@@ -53,12 +53,12 @@ public class VentanaPrincipal extends JFrame {
 
         // ----- Navegación entre ventanas -----
         btnRegistrar.addActionListener(e -> new VentanaRegistroPedido(controlador).setVisible(true));
-        btnListar.addActionListener(e -> new VentanaListaPedidos(controlador).setVisible(true));
+        btnListar.addActionListener(e -> new VentanaListaPedidos().setVisible(true));
         btnAsignar.addActionListener(e -> new VentanaAsignarRepartidor(controlador).setVisible(true));
         btnSalir.addActionListener(e -> confirmarSalida());
 
         // ----- Pie -----
-        JLabel lblPie = new JLabel("Desarrollo Orientado a Objetos II - Semana 6", SwingConstants.CENTER);
+        JLabel lblPie = new JLabel("Desarrollo Orientado a Objetos II - Semana 7", SwingConstants.CENTER);
         lblPie.setFont(new Font("SansSerif", Font.ITALIC, 11));
         lblPie.setForeground(new Color(120, 120, 120));
         lblPie.setBorder(BorderFactory.createEmptyBorder(5, 10, 15, 10));

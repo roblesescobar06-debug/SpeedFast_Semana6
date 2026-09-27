@@ -1,41 +1,29 @@
 package vista;
 
-import modelo.ControladorDeEnvios;
-import modelo.Pedido;
+import dao.PedidoDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.List;
 
 /**
- * Ventana que muestra todos los pedidos registrados en una JTable.
- * Los datos se gestionan con DefaultTableModel y se refrescan automáticamente.
+ * Muestra los pedidos almacenados en la base de datos speedfast_db.
  */
 public class VentanaListaPedidos extends JFrame {
 
-    private ControladorDeEnvios controlador;
-    private DefaultTableModel modeloTabla;
-    private JTable tablaPedidos;
-    private JLabel lblTotal;
+    private final PedidoDAO pedidoDAO = new PedidoDAO();
+    private final DefaultTableModel modeloTabla;
+    private final JTable tablaPedidos;
 
-    public VentanaListaPedidos(ControladorDeEnvios controlador) {
-        this.controlador = controlador;
-
-        setTitle("SpeedFast - Listado de pedidos");
-        setSize(800, 420);
+    public VentanaListaPedidos() {
+        setTitle("SpeedFast - Lista de Pedidos");
+        setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        // ----- Título -----
-        JLabel lblTitulo = new JLabel("Pedidos registrados", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 18));
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
-
-        // ----- Tabla -----
-        String[] columnas = {"ID", "Tipo", "Dirección", "Distancia (km)", "Repartidor", "Estado"};
+        String[] columnas = {"ID", "Dirección", "Tipo", "Estado"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int fila, int columna) {
@@ -44,68 +32,38 @@ public class VentanaListaPedidos extends JFrame {
         };
 
         tablaPedidos = new JTable(modeloTabla);
-        tablaPedidos.setRowHeight(24);
         tablaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tablaPedidos.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 13));
-        tablaPedidos.getTableHeader().setReorderingAllowed(false);
+        add(new JScrollPane(tablaPedidos), BorderLayout.CENTER);
 
-        JScrollPane scroll = new JScrollPane(tablaPedidos);
-        scroll.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
-
-        // ----- Pie: total + botones -----
-        lblTotal = new JLabel("Total de pedidos: 0");
-        lblTotal.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
-        JButton btnRefrescar = new JButton("Refrescar");
+        JButton btnActualizar = new JButton("Actualizar");
         JButton btnCerrar = new JButton("Cerrar");
 
-        btnRefrescar.addActionListener(e -> refrescarTabla());
+        btnActualizar.addActionListener(e -> cargarPedidos());
         btnCerrar.addActionListener(e -> dispose());
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-        panelBotones.add(btnRefrescar);
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBotones.add(btnActualizar);
         panelBotones.add(btnCerrar);
+        add(panelBotones, BorderLayout.SOUTH);
 
-        JPanel panelInferior = new JPanel(new BorderLayout());
-        panelInferior.setBorder(BorderFactory.createEmptyBorder(10, 20, 15, 20));
-        panelInferior.add(lblTotal, BorderLayout.WEST);
-        panelInferior.add(panelBotones, BorderLayout.EAST);
-
-        add(lblTitulo, BorderLayout.NORTH);
-        add(scroll, BorderLayout.CENTER);
-        add(panelInferior, BorderLayout.SOUTH);
-
-        // Refresca la tabla cada vez que la ventana vuelve a tener el foco.
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowActivated(WindowEvent e) {
-                refrescarTabla();
-            }
-        });
-
-        refrescarTabla();
+        cargarPedidos();
     }
 
-    /**
-     * Vacía la tabla y la vuelve a llenar con la lista común del controlador.
-     */
-    public void refrescarTabla() {
+    private void cargarPedidos() {
         modeloTabla.setRowCount(0);
-
-        for (Pedido p : controlador.getPedidos()) {
-            String tipo = p.getClass().getSimpleName().replace("Pedido", "");
-            String repartidor = (p.getRepartidor() == null) ? "Sin asignar" : p.getRepartidor();
-
-            modeloTabla.addRow(new Object[]{
-                    p.getIdPedido(),
-                    tipo,
-                    p.getDireccionEntrega(),
-                    p.getDistanciaKm(),
-                    repartidor,
-                    p.getEstado()
-            });
+        List<Object[]> filas = pedidoDAO.listarTodos();
+        for (Object[] fila : filas) {
+            modeloTabla.addRow(fila);
         }
+        if (filas.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "No hay pedidos registrados en la base de datos.",
+                    "Lista de Pedidos",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
-        lblTotal.setText("Total de pedidos: " + controlador.getPedidos().size());
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new VentanaListaPedidos().setVisible(true));
     }
 }

@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1eea317-4e57-4ba9-a723-46dbb9e13263" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/vista/VentanaAsignarRepartidor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vista/VentanaListaPedidos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vista/VentanaPrincipal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vista/VentanaRegistroPedido.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/Cancelable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Cancelable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/ControladorDeEnvios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/ControladorDeEnvios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/Despachable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Despachable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Pedido.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/PedidoComida.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/PedidoComida.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/PedidoEncomienda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/PedidoEncomienda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/PedidoExpress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/PedidoExpress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/speedfast/Rastreable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Rastreable.java" afterDir="false" />
+    <list default="true" id="c1eea317-4e57-4ba9-a723-46dbb9e13263" name="Changes" comment="Merge remote-tracking branch 'origin/master'">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_26_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dao/ConexionDB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dao/EntregaDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dao/PedidoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dao/RepartidorDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dao/TestDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modelo/Entrega.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modelo/Repartidor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpeedFast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SpeedFast.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vista/VentanaAsignarRepartidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vista/VentanaAsignarRepartidor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vista/VentanaListaPedidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vista/VentanaListaPedidos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vista/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vista/VentanaPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vista/VentanaRegistroPedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vista/VentanaRegistroPedido.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,38 +32,51 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "roblesescobar06-debug"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;roblesescobar06-debug&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/roblesescobar06-debug/SpeedFast.git",
-    "accountId": "f2f8b3d2-ad10-4b86-9fb7-ea159ff37f73"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/roblesescobar06-debug/SpeedFast_Semana6.git&quot;,
+    &quot;accountId&quot;: &quot;f2f8b3d2-ad10-4b86-9fb7-ea159ff37f73&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/dao/EntregaDA0.java" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/vista/VentanaPrincipal.java" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="3Jf6Ok7uirxMGsfrYkssUKSUrO2" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ConexionDB.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.TestDAO.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -84,10 +95,56 @@
       <option name="presentableId" value="Default" />
       <updated>1790039751232</updated>
     </task>
+    <task id="LOCAL-00001" summary="Semana 6: interfaz gráfica Swing con registro, listado y asignación de pedidos">
+      <option name="closed" value="true" />
+      <created>1790042979758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1790042979758</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Semana 6: interfaz gráfica Swing con registro, listado y asignación de pedidos">
+      <option name="closed" value="true" />
+      <created>1790042995686</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1790042995686</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Semana 6: interfaz gráfica Swing con registro, listado y asignación de pedidos">
+      <option name="closed" value="true" />
+      <created>1790043024585</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1790043024585</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge remote-tracking branch 'origin/master'">
+      <option name="closed" value="true" />
+      <created>1790043062036</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1790043062036</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Merge remote-tracking branch 'origin/master'">
+      <option name="closed" value="true" />
+      <created>1790043146590</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1790043146590</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Semana 6: interfaz gráfica Swing con registro, listado y asignación de pedidos" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -97,6 +154,11 @@
           <line>18</line>
           <properties field="repartidor" class="modelo.Pedido" />
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/vista/VentanaPrincipal.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
