@@ -1,34 +1,22 @@
-# SpeedFast — Interfaz gráfica para gestión de entregas
+# SpeedFast – Semana 7: JDBC + MySQL
 
-Actividad formativa **Semana 6 — Desarrollo Orientado a Objetos II**.
+Sistema de gestión de pedidos y entregas en Java (Swing) conectado a una base de datos MySQL mediante JDBC.
 
-## Descripción
-
-Aplicación de escritorio en Java Swing para la empresa SpeedFast, que permite
-registrar pedidos, visualizarlos en una tabla y asignar repartidores simulando
-el inicio de la entrega. Los datos se almacenan en listas en memoria
-compartidas entre todas las ventanas mediante un controlador común.
-
-## Estructura del proyecto
-
-| Paquete | Clases |
-|---|---|
-| `main` | `Main` — punto de entrada, llama a `new VentanaPrincipal()` |
-| `modelo` | `Pedido` (abstracta), `PedidoComida`, `PedidoEncomienda`, `PedidoExpress`, `ControladorDeEnvios`, interfaces `Despachable`, `Cancelable`, `Rastreable` |
-| `vista` | `VentanaPrincipal`, `VentanaRegistroPedido`, `VentanaListaPedidos`, `VentanaAsignarRepartidor` |
+## Estructura
+- `modelo`: Pedido (abstracta), PedidoComida, PedidoEncomienda, PedidoExpress, Repartidor, Entrega, ControladorDeEnvios
+- `dao`: ConexionDB, PedidoDAO, RepartidorDAO, EntregaDAO, TestDAO
+- `vista`: VentanaPrincipal, VentanaRegistroPedido, VentanaListaPedidos, VentanaAsignarRepartidor
+- `main`: Main
 
 ## Funcionalidades
+- Registrar pedidos en la tabla `pedido` (ID generado por MySQL).
+- Listar pedidos desde la base de datos.
+- Asignar repartidor desde la tabla `repartidor`, registrar la entrega en la tabla `entrega` y actualizar el estado del pedido (Pendiente → En reparto → Entregado) usando un hilo.
 
-- **Ventana principal** (`BorderLayout` + `GridLayout`) con navegación hacia las demás ventanas.
-- **Registro de pedidos** con campos ID, dirección, distancia y tipo (`JComboBox`).
-  Valida campos vacíos, formato numérico, valores positivos e ID duplicado,
-  y confirma con `JOptionPane`.
-- **Listado de pedidos** en `JTable` gestionada con `DefaultTableModel`,
-  con refresco manual y automático al volver a la ventana.
-- **Asignación de repartidor**: selecciona un pedido pendiente, asigna el
-  repartidor y simula la entrega en un hilo separado sin congelar la interfaz
-  (Pendiente → En reparto → Entregado).
+## Requisitos
+- JDK 21 o superior
+- MySQL 8 con la base de datos `speedfast_db` (tablas `repartidor`, `pedido`, `entrega`)
+- Conector `mysql-connector-j` agregado como librería del proyecto
 
 ## Ejecución
-
-Clase principal: `main.Main`
+Ejecutar `main.Main`.
