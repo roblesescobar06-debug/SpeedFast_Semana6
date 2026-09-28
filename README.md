@@ -4,12 +4,13 @@ Sistema de gestión de pedidos y entregas en Java (Swing) conectado a una base d
 
 ## Estructura
 - `modelo`: Pedido (abstracta), PedidoComida, PedidoEncomienda, PedidoExpress, Repartidor, Entrega, ControladorDeEnvios
-- `dao`: ConexionDB, PedidoDAO, RepartidorDAO, EntregaDAO, TestDAO
-- `vista`: VentanaPrincipal, VentanaRegistroPedido, VentanaListaPedidos, VentanaAsignarRepartidor
+- `dao`: ConexionBD, PedidoDAO, RepartidorDAO, EntregaDAO, TestDAO
+- `vista`: VentanaPrincipal, VentanaRegistroPedido, VentanaListaPedidos, VentanaRegistroRepartidor, VentanaAsignarRepartidor
 - `main`: Main
 
 ## Funcionalidades
 - Registrar pedidos en la tabla `pedido` (ID generado por MySQL).
+- Registrar repartidores en la tabla `repartidor` y mostrarlos en una JTable.
 - Listar pedidos desde la base de datos.
 - Asignar repartidor desde la tabla `repartidor`, registrar la entrega en la tabla `entrega` y actualizar el estado del pedido (Pendiente → En reparto → Entregado) usando un hilo.
 
